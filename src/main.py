@@ -62,7 +62,7 @@ def awaddmem(mem_data):
     #print(memory)
     
     result = database.update_document(db_id,coll_id,doc_id, data)
-    res = {"ok":true}
+    res = {"ok":True}
     return res
 
 def awgetmems(mem_data):
