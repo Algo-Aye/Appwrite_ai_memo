@@ -43,7 +43,7 @@ def main(context):
             return context.res.json(prompt_dta, 500)
     elif command == "eat_user":
             usr_data = eatUser(cmd_data)
-            return context.res.json(usr_dta, 200)
+            return context.res.json(usr_data, 200)
     #try:
     #    throw_if_missing(context.req.body, ["prompt"])
     #except ValueError as err:
