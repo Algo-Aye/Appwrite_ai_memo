@@ -11,10 +11,13 @@ def main(context):
             get_static_file("index.html"),
             200,
             {
-                "Content-Type": "text/html; charset=utf-8",
+                "Content-Type": "text/html",
             },
         )
 
+    req_body = context.req.body
+    command = req_body["cmd"]
+    cmd_data = re_body["content"]
     try:
         throw_if_missing(context.req.body, ["prompt"])
     except ValueError as err:
@@ -23,6 +26,7 @@ def main(context):
     openai.api_key = os.environ["OPENAI_API_KEY"]
 
     try:
+        
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             max_tokens=int(os.environ.get("OPENAI_MAX_TOKENS", "512")),
