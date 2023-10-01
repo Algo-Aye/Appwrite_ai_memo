@@ -35,7 +35,7 @@ def main(context):
     command = req_body["cmd"]
     cmd_data = req_body["content"]
 
-    if commmand == "eat_mem" :
+    if command == "eat_mem" :
         prompt_dta = handlePrompt(cmd_data,context)
         if prompt_dta["ok"]==True:
             return context.res.json(prompt_dta, 200)
