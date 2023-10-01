@@ -109,7 +109,10 @@ def awcreatedb(json_std):
 
     doc_id = namex
     result = database.create_document(db_id,collection_id,doc_id, data)
-    return result["$id"]
+    if len(result) > 0:
+          return result["$id"]
+    else:
+          return None
 
 def handlePrompt(prompt,context):
     try:
@@ -154,9 +157,15 @@ def main(context):
         rst = {"ok":True}
         return context.res.json(rst, 200)
     elif command == "eat_user":
-            #usr_data = eatUser(cmd_data)
-            awcreatedb(cmd_data)
-            return context.res.json(usr_data, 200)
+            usr_data = "user okay"
+            #eatUser(cmd_data)
+            user_man = awcreatedb(cmd_data)
+
+            if user_man !=None:
+                  return context.res.json(usr_data, 200)
+            else:
+                  err_data = "user failed"
+                  return context.res.json(err_data, 200)
     elif command == "buff_mem":
             my_prompt = gptEat(json_ct)
             handlePrompt(my_prompt,context)
