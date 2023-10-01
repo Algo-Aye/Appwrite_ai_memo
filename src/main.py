@@ -80,11 +80,17 @@ def gptEat(json_std):
     mems = awgetmems(json_std)
     my_gpt_msg = gpt_msg
     for mem in mems:
-        my_gpt = gpt_temp
+        my_gpt = {
+      "role": "user",
+      "content": ""
+    }
         my_gpt['content']=mem
         my_gpt_msg.append(my_gpt)
     qtn = json_std["query"]
-    xmy_gpt = gpt_temp
+    xmy_gpt = {
+      "role": "user",
+      "content": ""
+    }
     xmy_gpt["content"] = "check from my memories above for this: "+str(qtn)
     my_gpt_msg.append(xmy_gpt)
     #print(my_gpt_msg)
