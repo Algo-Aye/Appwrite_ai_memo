@@ -34,7 +34,6 @@ def eatUser(user_data):
 def gen_db_id(name):
     name_len = len(name)
     rem_len = (big_len - name_len)
-
     namex=name+key_stat[:rem_len]
     return namex
 
@@ -70,9 +69,8 @@ def awgetmems(mem_data):
     name = mem_data["nickname"]
     
     database = appwrite.services.databases.Databases(client)
-    
     doc_id = gen_db_id(name)
-
+    
     try:
           doc_result = database.get_document(db_id,coll_id,doc_id)
           memories = doc_result['memories']
