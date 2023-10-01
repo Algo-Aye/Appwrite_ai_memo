@@ -148,12 +148,12 @@ def main(context):
     throw_if_missing(os.environ, ["OPENAI_API_KEY"])
 
     if context.req.method == "GET":
-        pathurl = req.path
-
-        if(len(pathurl)>0):
-              return context.res.send(get_static_file(pathurl),200,{"content-type": "text/html",})
-        else:
-              return context.res.send(get_static_file("index.html"),200,{"content-type": "text/html",},)
+        #pathurl = req.path
+        return context.res.send(get_static_file("index.html"),200,{"content-type": "text/html",},)
+        #if(len(pathurl)>0):
+        #      return context.res.send(get_static_file(pathurl),200,{"content-type": "text/html",})
+        #else:
+        #      return context.res.send(get_static_file("index.html"),200,{"content-type": "text/html",},)
 
     req_body = context.req.body
     command = req_body["cmd"]
