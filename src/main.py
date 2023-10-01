@@ -39,7 +39,8 @@ def gen_db_id(name):
 
 def awaddmem(mem_data):
     name = mem_data["nickname"]
-    
+    if (len(name)<=0):
+          return None
     database = appwrite.services.databases.Databases(client)
     title = mem_data["title"]
     content = mem_data["content"]
@@ -67,7 +68,8 @@ def awaddmem(mem_data):
 
 def awgetmems(mem_data):
     name = mem_data["nickname"]
-    
+    if (len(name)<=0):
+          return None
     database = appwrite.services.databases.Databases(client)
     doc_id = gen_db_id(name)
     
