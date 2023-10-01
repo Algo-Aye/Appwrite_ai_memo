@@ -13,7 +13,7 @@ def handlePrompt(prompt,context):
             messages=[{"role": "user", "content": context.req.body["prompt"]}],
         )
         completion = response.choices[0].message.content
-         json_data= {"ok": True, "completion": completion}
+        json_data= {"ok": True, "completion": completion}
         return json_data
 
     except Exception:
