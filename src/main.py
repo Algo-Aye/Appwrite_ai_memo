@@ -10,7 +10,7 @@ def handlePrompt(prompt,context):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             max_tokens=int(os.environ.get("OPENAI_MAX_TOKENS", "512")),
-            messages=[{"role": "user", "content": context.req.body["prompt"]}],
+            messages=[{"role": "user", "content": prompt}],
         )
         completion = response.choices[0].message.content
         json_data= {"ok": True, "completion": completion}
