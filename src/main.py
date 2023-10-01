@@ -6,7 +6,7 @@ def eatUser(user_data):
     return user_data
 
 def handlePrompt(prompt,context):
-     try:
+    try:
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             max_tokens=int(os.environ.get("OPENAI_MAX_TOKENS", "512")),
@@ -15,7 +15,6 @@ def handlePrompt(prompt,context):
         completion = response.choices[0].message.content
         json_data= {"ok": True, "completion": completion}
         return json_data
-
     except Exception:
         json_error = {"ok": False, "error": "Failed to query model."}
         return json_error
