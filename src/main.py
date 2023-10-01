@@ -167,10 +167,12 @@ def main(context):
                   err_data = "user failed"
                   return context.res.json(err_data, 200)
     elif command == "buff_mem":
-            my_prompt = gptEat(json_ct)
-            handlePrompt(my_prompt,context)
+            my_prompt = gptEat(cmd_data)
+            prompt_dta = handlePrompt(my_prompt,context)
             if prompt_dta["ok"]==True:
                 return context.res.json(prompt_dta, 200)
+            else:
+                  return context.res.json("prompt error", 200)
     #try:
     #    throw_if_missing(context.req.body, ["prompt"])
     #except ValueError as err:
