@@ -48,7 +48,8 @@ def awaddmem(mem_data):
 
     doc_id = gen_db_id(name)
     memory = f"use_title:'{title}' use_content:'{content}' use_tags:'{tags}'"
-    
+
+      
     doc_result = database.get_document(db_id,coll_id,doc_id)
     memories = doc_result['memories']
 
@@ -71,10 +72,13 @@ def awgetmems(mem_data):
     database = appwrite.services.databases.Databases(client)
     
     doc_id = gen_db_id(name)
-    doc_result = database.get_document(db_id,coll_id,doc_id)
-    memories = doc_result['memories']
 
-    return memories
+    try:
+          doc_result = database.get_document(db_id,coll_id,doc_id)
+          memories = doc_result['memories']
+          return memories
+    except Exception:
+          return None
 
 def gptEat(json_std):
     mems = awgetmems(json_std)
@@ -157,12 +161,25 @@ def main(context):
     cmd_data = req_body["content"]
 
     if command == "eat_mem" :
+        mem_doc = awgetmems(cmd_data)
+
+        if mem_doc!=None:
         #prompt_dta = handlePrompt(cmd_data,context)
-        awaddmem(cmd_data)
+              awaddmem(cmd_data)
+              rst = {"ok":True}
+              return context.res.json(rst, 200)
+        else:
+              user_man = awcreatedb(cmd_data)
+              awaddmem(cmd_data)
+              if user_man !=None:
+                  rst = {"ok":True}
+                  return context.res.json(rst, 200)
+              else:
+                  err_data = {"msg":"user failed"}
+                  return context.res.json(err_data, 200)
         #if prompt_dta["ok"]==True:
         #   return context.res.json(prompt_dta, 200)
-        rst = {"ok":True}
-        return context.res.json(rst, 200)
+        
     elif command == "eat_user":
             usr_data = "user okay"
             #eatUser(cmd_data)
@@ -174,12 +191,18 @@ def main(context):
                   err_data = "user failed"
                   return context.res.json(err_data, 200)
     elif command == "buff_mem":
-            my_prompt = gptEat(cmd_data)
-            prompt_dta = handlePrompt(my_prompt,context)
-            if prompt_dta["ok"]==True:
-                return context.res.json(prompt_dta, 200)
+            mem_doc = awgetmems(cmd_data)
+
+            if mem_doc!=None:
+                  my_prompt = gptEat(cmd_data)
+                  prompt_dta = handlePrompt(my_prompt,context)
+                  if prompt_dta["ok"]==True:
+                      return context.res.json(prompt_dta, 200)
+                  else:
+                      return context.res.json("prompt error", 200)
             else:
-                  return context.res.json("prompt error", 200)
+                err_data = {"msg":"user failed"}
+                return context.res.json(err_data, 200)
     #try:
     #    throw_if_missing(context.req.body, ["prompt"])
     #except ValueError as err:
