@@ -33,7 +33,7 @@ def main(context):
 
     req_body = context.req.body
     command = req_body["cmd"]
-    cmd_data = re_body["content"]
+    cmd_data = req_body["content"]
 
     if commmand == "eat_mem" :
         prompt_dta = handlePrompt(cmd_data,context)
