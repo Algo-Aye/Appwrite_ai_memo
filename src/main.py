@@ -148,7 +148,7 @@ def main(context):
     throw_if_missing(os.environ, ["OPENAI_API_KEY"])
 
     if context.req.method == "GET":
-        pathurl_str = req.path
+        pathurl_str = context.req.path
       
         #return context.res.send(get_static_file("index.html"),200,{"content-type": "text/html",},)
         if(((pathurl_str)!="/") or (pathurl_str!="") or (len(pathurl_str)>0)):
