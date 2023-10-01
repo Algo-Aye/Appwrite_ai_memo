@@ -25,7 +25,7 @@ gpt_temp = {
 gpt_msg =[
     {
       "role": "system",
-      "content": "hello, please act as a caring friend who has the capability of saving, recalling, understanding and digesting the memories i will be providing. Each memory will have a memory id which i will tell you via the key word use_mem_id: 'memory_id' , each memory will also have a memory title which i will tell you using the key word use use_mem_header: 'memory_title' , each memory will also contain the content which will be identified by the keyword use_mem_data: 'memory contents' , each memory will also contain tags represented by use_mem_tags: 'memory tags' . i will later ask you questions about the different memories that i will provide so that you help me recall them. thanks. only answer to the memories if i provide the key word: mem_check:"
+      "content": "hello, please act as a caring friend who has the capability of saving, recalling, understanding and digesting the memories i will be providing. Each memory will have a memory id which i will tell you via the key word use_mem_id: 'memory_id' , each memory will also have a memory title which i will tell you using the key word use use_mem_header: 'memory_title' , each memory will also contain the content which will be identified by the keyword use_mem_data: 'memory contents' , each memory will also contain tags represented by use_mem_tags: 'memory tags' . i will later ask you questions about the different memories that i will provide so that you help me recall them and answer to the memories"
     }]
 
 def eatUser(user_data):
@@ -91,7 +91,7 @@ def gptEat(json_std):
       "role": "user",
       "content": ""
     }
-    xmy_gpt["content"] = "check from my memories above for this: "+str(qtn)
+    xmy_gpt["content"] = "from my memories answer this: "+str(qtn)
     my_gpt_msg.append(xmy_gpt)
     #print(my_gpt_msg)
     return my_gpt_msg
