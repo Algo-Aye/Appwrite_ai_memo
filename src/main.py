@@ -5,7 +5,7 @@ from appwrite.services.databases import Databases
 import appwrite
 import os
 
-
+big_len = 36
 proj_id = os.environ.get("PROJ_ID")
 sec_key = os.environ.get("SECRET_KEY")
 coll_id = os.environ.get("COLLECTION_ID")
