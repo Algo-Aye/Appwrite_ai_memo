@@ -138,10 +138,10 @@ def handlePrompt(prompt,context):
             messages=prompt,
         )
         completion = response.choices[0].message.content
-        json_data= {"ok": True, "completion": completion}
+        json_data= {"ok": True, "msg": completion}
         return json_data
     except Exception:
-        json_error = {"ok": False, "error": "Failed to query model."}
+        json_error = {"ok": False, "msg": "Failed to query model."}
         return json_error
 
 def main(context):
@@ -166,13 +166,13 @@ def main(context):
         if mem_doc!=None:
         #prompt_dta = handlePrompt(cmd_data,context)
               awaddmem(cmd_data)
-              rst = {"ok":True}
+              rst = {"ok":True,msg:"user added"}
               return context.res.json(rst, 200)
         else:
               user_man = awcreatedb(cmd_data)
               awaddmem(cmd_data)
               if user_man !=None:
-                  rst = {"ok":True}
+                  rst = {"ok":True,"msg":"success}
                   return context.res.json(rst, 200)
               else:
                   err_data = {"msg":"user failed"}
@@ -186,10 +186,12 @@ def main(context):
             user_man = awcreatedb(cmd_data)
 
             if user_man !=None:
-                  return context.res.json(usr_data, 200)
+                  usr_json = {"msg":use_data}
+                  return context.res.json(usr_json, 200)
             else:
                   err_data = "user failed"
-                  return context.res.json(err_data, 200)
+                  err_json = {"msg":err_data}
+                  return context.res.json(err_json, 200)
     elif command == "buff_mem":
             mem_doc = awgetmems(cmd_data)
 
@@ -199,7 +201,8 @@ def main(context):
                   if prompt_dta["ok"]==True:
                       return context.res.json(prompt_dta, 200)
                   else:
-                      return context.res.json("prompt error", 200)
+                      err_data = {"msg":"prompt error"}
+                      return context.res.json(err_data, 200)
             else:
                 err_data = {"msg":"user failed"}
                 return context.res.json(err_data, 200)
