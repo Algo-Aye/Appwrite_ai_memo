@@ -11,7 +11,7 @@ def main(context):
             get_static_file("index.html"),
             200,
             {
-                "Content-Type": "text/html",
+                "content-type": "text/html",
             },
         )
 
