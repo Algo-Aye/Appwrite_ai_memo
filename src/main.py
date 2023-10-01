@@ -25,7 +25,7 @@ gpt_temp = {
 gpt_msg =[
     {
       "role": "system",
-      "content": "hello brain, please act as a caring friend who has the capability of saving, recalling, understanding and digesting the memories i will be giving him.\neach memory will have a memory id which i will tell you via the key word use_mem_id: \"memory_id\" , each memory will also have a memory title which i will tell you using the key word use use_mem_header: \"memory_title\" , each memory will also contain the content which will be identified by the keyword use_mem_data: \"memory contents\" , each memory will also contain tags represented by use_mem_tags: [list of memory tags] . i will later ask you questions about the different memories so that you help me recall them. thanks."
+      "content": "hello, please act as a caring friend who has the capability of saving, recalling, understanding and digesting the memories i will be providing. Each memory will have a memory id which i will tell you via the key word use_mem_id: 'memory_id' , each memory will also have a memory title which i will tell you using the key word use use_mem_header: 'memory_title' , each memory will also contain the content which will be identified by the keyword use_mem_data: 'memory contents' , each memory will also contain tags represented by use_mem_tags: 'memory tags' . i will later ask you questions about the different memories that i will provide so that you help me recall them. thanks. only answer to the memories if i provide the key word: mem_check:"
     }]
 
 def eatUser(user_data):
@@ -85,7 +85,7 @@ def gptEat(json_std):
         my_gpt_msg.append(my_gpt)
     qtn = json_std["query"]
     xmy_gpt = gpt_temp
-    xmy_gpt["content"] = "check from my memories for this: "+str(qtn)
+    xmy_gpt["content"] = "check from my memories above for this: "+str(qtn)
     my_gpt_msg.append(xmy_gpt)
     #print(my_gpt_msg)
     return my_gpt_msg
@@ -121,6 +121,7 @@ def handlePrompt(prompt,context):
         #    max_tokens=int(os.environ.get("OPENAI_MAX_TOKENS", "512")),
         #    messages=[{"role": "user", "content": prompt}],
         #)
+        context.log(prompt)
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             max_tokens=int(os.environ.get("OPENAI_MAX_TOKENS", "512")),
