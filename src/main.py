@@ -153,8 +153,10 @@ def main(context):
         #return context.res.send(get_static_file("index.html"),200,{"content-type": "text/html",},)
         if(((pathurl_str)!="/") or (pathurl_str!="") or (len(pathurl_str)>0)):
                pathurl = pathurl_str[1:]
+               context.log(pathurl)
                return context.res.send(get_static_file(pathurl),200,{"content-type": "text/html",})
         else:
+              context.log("yes path")
               return context.res.send(get_static_file("index.html"),200,{"content-type": "text/html",},)
 
     req_body = context.req.body
