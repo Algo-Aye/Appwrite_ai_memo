@@ -169,7 +169,7 @@ def main(context):
         if mem_doc!=None:
         #prompt_dta = handlePrompt(cmd_data,context)
               awaddmem(cmd_data)
-              rst = {"ok":True,msg:"user added"}
+              rst = {"ok":True,"msg":"user added"}
               return context.res.json(rst, 200)
         else:
               user_man = awcreatedb(cmd_data)
