@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Memory GPT</title>
+    <title>Memory BOX</title>
 
     <script>
       let addmem_bool = false;
@@ -34,6 +34,7 @@
         const mem_data = document.getElementById("notebox").value;
         const mem_tags = document.getElementById("note_tags").value;
         const mem_nickname = document.getElementById("nickname_box").value;
+        const response_box = document.getElementById("responses");
 
         const mem_json = {
             "cmd":"eat_mem",
@@ -49,6 +50,8 @@
         const returned = await onSubmit(mem_json);
         answer = returned.msg;
         alert(answer);
+
+        response_box.innerText = answer;
       }
 
 
@@ -58,7 +61,7 @@
         const mem_data = document.getElementById("querybox").value;
         const mem_tags = document.getElementById("qtags").value;
         const mem_nickname = document.getElementById("nickname_box").value;
-
+        const response_box = document.getElementById("responses");
         const mem_json = {
             "cmd":"buff_mem",
             "content":{
@@ -72,6 +75,7 @@
         const returned = await onSubmit(mem_json);
         answer = returned.msg;
         alert(answer);
+        response_box.innerText = answer;
       }
 
 
@@ -215,7 +219,7 @@
           </div>
               <br/>
               <!--div class="icon-search" aria-hidden="true"></div-->
-            <button class="button">
+            <button class="button" onclick="recallMem()">
               RECALL MEMORY
             </button>
           
@@ -229,7 +233,7 @@
                 </div>
 
                 <div style="overflow-x: hidden; line-break: anywhere">
-                  <p class="u-color-text-gray" x-text="answer"></p>
+                  <p id="responses" class="u-color-text-gray" x-text="answer"></p>
                 </div>
               </div>
             </div>
